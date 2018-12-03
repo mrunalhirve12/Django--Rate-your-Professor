@@ -1,0 +1,44 @@
+{% extends "review/base.html" %}
+{% block content %}
+
+<h1 xmlns:text-align="http://www.w3.org/1999/xhtml" xmlns:text-align="http://www.w3.org/1999/xhtml"> Reviews By  {{ view.kwargs.username }} ({{ page_obj.paginator.count }}) </h1>
+{% for posts in posts %}
+<article class="media content-section">
+    <a class="mr-2" href="{% url 'user_reviews' posts.author.username %}"> <img class="rounded-circle article-img" src="{{ posts.author.profile.image.url }}"> </a>
+    <div class="media-body">
+        <div class="article-metadata">
+            <h5>Instructor :<font color="green"> {{posts.instructor}} </font></h5>
+            Ratings : {{posts.ratings}}
+            <p>
+                <small class="text-muted"> Date Posted : {{posts.date_posted|date:"F d, Y" }}</small>
+            </p>
+        </div>
+        <h5>Course : {{posts.course}}</h5>
+        <p class="article-content"> Comments : {{posts.comments}}</p>
+    </div>
+    <a class="mr-2" href="{% url 'review-detail' posts.id %}">View</a>
+</article>
+{% endfor %}
+<div align="center">
+    {% if is_paginated %}
+    {% if page_obj.has_previous %}
+    <a class="btn btn-outline-info mb-4" href="?page=1">First</a>
+    <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.previous_page_number }}">Previous</a>
+    {% endif %}
+
+    {% for num in page_obj.paginator.page_range %}
+    {% if page_obj.number == num %}
+    <a class="btn btn-info mb-4" href="?page={{ num }}">{{ num }}</a>
+    {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+    <a class="btn btn-outline-info mb-4" href="?page={{ num }}">{{ num }}</a>
+    {% endif %}
+    {% endfor %}
+
+    {% if page_obj.has_next %}
+    <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.next_page_number }}">Next</a>
+    <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.paginator.num_pages }}">Last</a>
+    {% endif %}
+    {% endif %}
+</div>
+
+{% endblock%}

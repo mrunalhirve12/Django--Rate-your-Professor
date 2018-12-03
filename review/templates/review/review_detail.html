@@ -1,0 +1,22 @@
+{% extends "review/base.html" %}
+{% block content %}
+<h1 xmlns:text-align="http://www.w3.org/1999/xhtml" xmlns:text-align="http://www.w3.org/1999/xhtml"> Reviews </h1>
+<article class="media content-section">
+    <a class="mr-2" href="{% url 'user_reviews' object.author.username %}"> <img class="rounded-circle article-img" src="{{ object.author.profile.image.url }}"> </a>
+    <div class="media-body">
+        <div class="article-metadata">
+            <h5>Instructor :<font color="green"> {{object.instructor}} </font></h5>
+            Ratings : {{object.ratings}}
+            <p>
+                <small class="text-muted"> Date Posted : {{object.date_posted|date:"F d, Y" }}</small>
+            </p>
+        </div>
+        <h5 class="article-title">Course : {{object.course}}</h5>
+        <p class="article-content"> Comments : {{object.comments}}</p>
+        {% if object.author == user %}
+            <a class="mr-2" href="{% url 'review-update' object.id %}">Update</a>
+            <a class="mr-2" href="{% url 'review-delete' object.id %}">Delete</a>
+        {% endif %}
+    </div>
+</article>
+{% endblock%}
