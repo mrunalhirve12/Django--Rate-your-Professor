@@ -12,3 +12,5 @@ Rate you Professor is an application created in Django framework.
 1. Create virtual environment for the running the project
 2. Install django
 3. Run the application on local server using ***python manage.py runserver***
+
+Reference : Django Tutorials by Corey Shefar -https://www.youtube.com/watch?v=UmljXZIypDc
